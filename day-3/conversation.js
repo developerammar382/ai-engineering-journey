@@ -1,12 +1,22 @@
+// system prompt sets the behavior
 const messages = [
     {
-        // This message sets the AI's behaviour for the whole conversation.
-        // It tells the model how we want it to answer our questions.
         role: "system",
         content: "You are a senior Ai engineering mentor. Explain everything simply with examples."
     },
 ];
 
-// Exporting the messages array so other files can use and update
-// the same conversation history.
-export default messages;
+// return list of messages
+export function getMessages() {
+    return messages;
+}
+
+// add a new message to the list
+export function addMessage(message){
+    messages.push(message);
+}
+
+// clear all messages axcept the system prompt
+export function clearMessages() {
+    messages.length = 1;
+}

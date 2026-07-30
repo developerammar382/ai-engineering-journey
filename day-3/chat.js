@@ -1,5 +1,5 @@
 import ollama from "ollama";
-import messages from "./conversation.js";
+import {getMessages, addMessage} from "./conversation.js";
 
 // This stores our chat history.
 // Every time we talk with the AI, new messages are added here.
@@ -8,27 +8,27 @@ import messages from "./conversation.js";
 async function askAI(question) {
     // Add the user's question to the conversation before sending it.
     // The AI needs previous messages as context because it doesn't remember by itself.
-    messages.push({
+    addMessage({
         role: "user",
         content: question
     });
 
-    // console.log("updated user messages", messages);
+    // console.log("updated user messages", getMessages());
 
     // Send the complete conversation to Ollama.
     // This helps the model understand what was discussed before.
     const response = await ollama.chat({
         model: "qwen2.5:3b",
-        messages
+        messages: getMessages()
     });
 
     // Save the AI response so the next question can continue this conversation.
-    messages.push(response.message);
+    addMessage(response.message);
 
-    // console.log("updated assistant messages", messages);
+    // console.log("updated assistant messages", getMessages());
 
     // Showing only the latest AI answer.
-    console.log("AI:", response.message.content);
+    return response.message.content;
 }
 
 
