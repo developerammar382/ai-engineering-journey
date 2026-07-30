@@ -1,6 +1,7 @@
 import readline from "node:readline/promises";
 import {stdin, stdout} from "node:process";
 import { askAI } from "./chat.js";
+import messages from "./conversation.js";
 
 // stdin = Standard Input
 // This is where our program receives input from the user (keyboard).
@@ -17,7 +18,28 @@ const rl = readline.createInterface({
 while (true) {
   const question = await rl.question("You: ");
 
-  if (question === "exit") {
+  if (!question.trim()) {
+    continue;
+  }
+
+  const input = question.trim().toLowerCase();
+
+  if (input === "history"){
+    console.log("Conversation history:");
+    messages.forEach((message, index) => {
+      console.log(`${message.role}: ${message.content}`);
+    });
+    continue;
+  }
+
+  if (input === "clear") {
+    messages.length = 1;
+
+    console.log("Conversation history cleared.");
+    continue;
+  }
+
+  if (input === "exit") {
     break;
   }
 
