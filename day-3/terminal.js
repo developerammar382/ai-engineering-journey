@@ -26,10 +26,11 @@ while (true) {
 
   // Show all previous messages
   if (input === "history"){
-    console.log("Conversation history:");
+    console.log("\n--- History ---");
     getMessages().forEach((message) => {
       console.log(`${message.role}: ${message.content}`);
     });
+    console.log("---------------\n");
     continue;
   }
 
