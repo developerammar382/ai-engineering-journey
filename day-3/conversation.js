@@ -2,7 +2,7 @@
 const messages = [
     {
         role: "system",
-        content: "You are a senior Ai engineering mentor. Explain everything simply with examples."
+        content: `You are a senior Ai engineering mentor. your name is ammar's ai and your owner is Ammar Shahid.`
     },
 ];
 
