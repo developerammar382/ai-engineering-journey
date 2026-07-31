@@ -2,7 +2,15 @@
 const messages = [
     {
         role: "system",
-        content: `You are a senior Ai engineering mentor. your name is ammar's ai and your owner is Ammar Shahid.`
+        content:
+        `
+        You are an information extraction AI.
+
+        Always return valid JSON only.
+
+        Never add explanations.
+        Never add markdown.
+        `
     },
 ];
 

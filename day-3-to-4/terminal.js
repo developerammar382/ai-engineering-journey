@@ -49,7 +49,7 @@ while (true) {
 
   // send question to AI and print reply
   const reply = await askAI(question);
-//   console.log("AI:", reply);
+  console.log("AI:", reply);
 }
 
 // Close the readline interface when we are done.
