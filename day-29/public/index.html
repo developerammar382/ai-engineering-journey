@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs Assistant</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 16px;
+        background: #f5f5f5;
+        color: #222;
+      }
+      form {
+        display: flex;
+        gap: 8px;
+      }
+      input {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+      }
+      button {
+        padding: 10px 16px;
+        font-size: 16px;
+      }
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 12px;
+      }
+      .question {
+        font-weight: bold;
+      }
+      .sources {
+        color: #666;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📚 Docs Assistant</h1>
+    <p>Ask a question about the documents.</p>
+
+    <form id="form">
+      <input id="input" placeholder="e.g. When are you open on Sunday?" autocomplete="off" />
+      <button>Ask</button>
+    </form>
+
+    <div id="answers"></div>
+
+    <script>
+      const form = document.getElementById("form");
+      const input = document.getElementById("input");
+      const answers = document.getElementById("answers");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const question = input.value.trim();
+        if (!question) return;
+        input.value = "";
+
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question }),
+        });
+        const data = await response.json();
+
+        // Newest answer on top.
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const q = document.createElement("p");
+        q.className = "question";
+        q.textContent = question;
+
+        const a = document.createElement("p");
+        a.textContent = data.answer ?? data.error;
+
+        card.append(q, a);
+
+        if (data.sources?.length) {
+          const s = document.createElement("p");
+          s.className = "sources";
+          s.textContent = "📄 " + data.sources.join(", ");
+          card.append(s);
+        }
+
+        answers.prepend(card);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+- Finish the RAG chapter
+- Buy groceries: eggs, milk, bread
+- Call the bank about the new card
+- Fix the login bug in the side project
+- Go for a 30 minute walk

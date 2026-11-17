@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs Assistant</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 16px;
+        background: #f5f5f5;
+        color: #222;
+      }
+      form {
+        display: flex;
+        gap: 8px;
+      }
+      input {
+        flex: 1;
+        min-width: 0;
+        padding: 10px;
+        font-size: 16px;
+      }
+      button {
+        padding: 10px 16px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: wait;
+      }
+      .examples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 12px 0;
+      }
+      .examples button {
+        font-size: 13px;
+        padding: 6px 10px;
+        border: 1px solid #ccc;
+        border-radius: 16px;
+        background: white;
+      }
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 12px;
+      }
+      .question {
+        font-weight: bold;
+      }
+      .meta {
+        color: #666;
+        font-size: 14px;
+      }
+      .error {
+        color: #b91c1c;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📚 Docs Assistant</h1>
+    <p id="status" class="meta">Connecting...</p>
+
+    <form id="form">
+      <input id="input" placeholder="Ask a question about the documents" autocomplete="off" />
+      <button id="ask">Ask</button>
+    </form>
+
+    <div class="examples">
+      <button type="button">When are you open on Sunday?</button>
+      <button type="button">How much is a cappuccino with oat milk?</button>
+      <button type="button">Can I bring my dog?</button>
+      <button type="button">How does the loyalty card work?</button>
+    </div>
+
+    <div id="answers"></div>
+
+    <script>
+      const form = document.getElementById("form");
+      const input = document.getElementById("input");
+      const askButton = document.getElementById("ask");
+      const answers = document.getElementById("answers");
+      const status = document.getElementById("status");
+
+      // Show how many chunks the server indexed.
+      fetch("/api/status")
+        .then((res) => res.json())
+        .then((data) => (status.textContent = `Ready · ${data.chunks} chunks indexed`))
+        .catch(() => (status.textContent = "Can't reach the server."));
+
+      // Example buttons fill in the question and ask it.
+      document.querySelectorAll(".examples button").forEach((button) => {
+        button.addEventListener("click", () => {
+          input.value = button.textContent;
+          form.requestSubmit();
+        });
+      });
+
+      function addParagraph(card, text, className) {
+        const p = document.createElement("p");
+        p.textContent = text;
+        if (className) p.className = className;
+        card.append(p);
+        return p;
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const question = input.value.trim();
+        if (!question) return;
+
+        input.value = "";
+        askButton.disabled = true;
+
+        const card = document.createElement("div");
+        card.className = "card";
+        addParagraph(card, question, "question");
+        const answer = addParagraph(card, "Thinking...", "meta");
+        answers.prepend(card);
+
+        const start = Date.now();
+
+        try {
+          const response = await fetch("/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question }),
+          });
+          const data = await response.json();
+
+          if (!response.ok) throw new Error(data.error);
+
+          answer.textContent = data.answer;
+          answer.className = "";
+
+          const seconds = ((Date.now() - start) / 1000).toFixed(1);
+          const sources = data.sources.length ? `📄 ${data.sources.join(", ")} · ` : "";
+          addParagraph(card, `${sources}${seconds}s`, "meta");
+        } catch (error) {
+          answer.textContent = error.message || "Something went wrong.";
+          answer.className = "error";
+        }
+
+        askButton.disabled = false;
+        input.focus();
+      });
+    </script>
+  </body>
+</html>

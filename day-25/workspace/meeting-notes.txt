@@ -1,0 +1,6 @@
+Team meeting, Monday
+
+- The website launch moves from the 10th to the 17th.
+- Sara will finish the new pricing page by Thursday.
+- Bilal found a bug in the checkout form; he will fix it this week.
+- Next meeting: Friday at 3 PM.

@@ -1,0 +1,15 @@
+Remote work became common for many software teams after 2020. Companies found that
+developers could stay productive at home, and many workers enjoyed skipping the daily
+commute. At the same time, teams faced new problems. Communication was slower, new
+team members found it harder to learn from senior colleagues, and some people felt
+lonely working alone every day.
+
+To deal with this, many teams moved to a hybrid model. People work from home most of
+the week and meet in the office one or two days for planning, pair programming and
+social time. Tools also improved: shared documents, video calls and chat apps made it
+easier to work together from different cities.
+
+Research is still mixed. Some studies show remote workers are more productive, while
+others show they collaborate less and come up with fewer new ideas. Most experts agree
+that there is no single best answer. The right setup depends on the team, the kind of
+work, and what the people on the team need.

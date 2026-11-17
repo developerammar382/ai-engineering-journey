@@ -27,3 +27,8 @@ coverage/
 # Build output
 dist/
 build/
+# Files created when running the days (personal data, rebuilt automatically)
+history.json
+notes.json
+store.json
+day-25/output/
