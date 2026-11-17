@@ -1,173 +1,151 @@
-# 🚀 30 Days of AI Engineering
+# 30 Days of AI Engineering
 
-My day-by-day journey of learning **AI Engineering** with **TypeScript** and **Ollama**, by building small projects.
+Building LLM applications from first principles: no frameworks, no cloud APIs, just **TypeScript**, **Node.js** built-ins and local models through **Ollama**.
 
-Every day has one topic, working code, and a short README explaining what I learned. It starts with a single AI call and ends with a full **Docs Assistant** (RAG + API + web page).
+Over 30 days I went from a single `chat()` call to a **RAG-powered Docs Assistant** with an HTTP API, a web UI, source citations, input guards and an automated eval suite. Every day is a small, runnable step with notes on what worked, what broke, and why.
 
-Everything runs **locally and for free** with [Ollama](https://ollama.com): no API keys, no cloud costs.
+```
+Day 1                                                                    Day 30
+  │                                                                         │
+  ▼                                                                         ▼
+messages[] → memory → streaming → JSON output → tools → tool loop → embeddings
+→ vector store → chunking → RAG → HTTP API → web UI → agent → evals → Docs Assistant
+```
+
+**Status: ✅ all 30 days complete.**
 
 ---
 
-## 🗺️ Roadmap
+## Why build it this way
 
-### Week 1 — LLM Basics
+- **No LangChain, no vector DB.** I wrote the tool loop, cosine similarity, the vector store, the chunker and the RAG pipeline myself, so I know what those libraries actually do.
+- **Local models only.** `qwen2.5:3b` for chat and `nomic-embed-text` for embeddings. Free, offline, and a small model shows failure modes that bigger models hide.
+- **Measure, don't guess.** From Week 4 on, prompt changes are judged by eval scores, not by "looks better".
+- **One folder per day.** Each day is a standalone snapshot. Shared code (like the vector store) is copied forward on purpose, so any day runs on its own.
 
-| Day | Topic                                                         | What I built                          |
-| --- | ------------------------------------------------------------- | ------------------------------------- |
-| 01  | [Chat message structure](./day-01)                            | Typed chat messages                   |
-| 02  | [First AI call + memory](./day-02)                            | A chat that remembers                 |
-| 03  | [Terminal chatbot](./day-03)                                  | Live chat with `readline`             |
-| 04  | [Streaming + commands](./day-04)                              | `history`, `clear`, `exit`            |
-| 05  | [Prompt engineering basics](./day-05)                         | System prompts, few-shot, temperature |
-| 06  | [Structured output (JSON)](./day-06)                          | Data extraction + JSON Schema         |
-| 07  | [🛠 Mini project: File summarizer](./day-07)                  | CLI that summarizes any text file     |
+---
 
-### Week 2 — Tools & Memory
+## Roadmap
 
-| Day | Topic                                                         | What I built                          |
-| --- | ------------------------------------------------------------- | ------------------------------------- |
-| 08  | [Tools by hand](./day-08)                                     | A safe calculator tool                |
-| 09  | [Real tool calling](./day-09)                                 | The AI decides when to use a tool     |
-| 10  | [Multiple tools + tool loop](./day-10)                        | Weather, time and math tools          |
-| 11  | [Saving chat history](./day-11)                               | Memory that survives restarts         |
-| 12  | [Context window limits](./day-12)                             | Trimming vs summarizing               |
-| 13  | [Error handling & reliable output](./day-13)                  | Retry, timeout, validation            |
-| 14  | [🛠 Mini project: Personal assistant](./day-14)               | Terminal assistant with notes         |
+### Week 1 — LLM fundamentals
+
+| Day | Topic | Key idea | |
+| --- | --- | --- | --- |
+| [01](./day-01) | Chat message structure | A conversation is just a typed array of `{ role, content }` | ✅ |
+| [02](./day-02) | First call + memory | The model is stateless. The app owns the history | ✅ |
+| [03](./day-03) | Terminal chatbot | `readline` loop over the chat API | ✅ |
+| [04](./day-04) | Streaming + commands | `for await` over token chunks; `history` / `clear` | ✅ |
+| [05](./day-05) | Prompt engineering | System prompts, few-shot, temperature 0 vs 1.2 | ✅ |
+| [06](./day-06) | Structured output | JSON Schema via `format` instead of "please return JSON" | ✅ |
+| [07](./day-07) | 🛠 File summarizer | CLI tool: `fs` + `argv` + streaming | ✅ |
+
+### Week 2 — Tools, memory, reliability
+
+| Day | Topic | Key idea | |
+| --- | --- | --- | --- |
+| [08](./day-08) | Tools by hand | LLMs can't do exact math; a sandboxed calculator (no `eval` on raw input) | ✅ |
+| [09](./day-09) | Native tool calling | The model asks, the app runs the function, the result goes back | ✅ |
+| [10](./day-10) | Multi-tool loop | Run tools until no `tool_calls` remain, with a max-steps guard | ✅ |
+| [11](./day-11) | Persistent history | Chat state saved to disk after every turn | ✅ |
+| [12](./day-12) | Context window | Trimming vs LLM summarization, measured with `prompt_eval_count` | ✅ |
+| [13](./day-13) | Reliability | Timeouts, retry with backoff, runtime type guards | ✅ |
+| [14](./day-14) | 🛠 Personal assistant | Tool loop + persistent notes + bounded history | ✅ |
 
 ### Week 3 — Embeddings & RAG
 
-| Day | Topic                                                         | What I built                          |
-| --- | ------------------------------------------------------------- | ------------------------------------- |
-| 15  | [What are embeddings?](./day-15)                              | Text → vectors                        |
-| 16  | [Cosine similarity & semantic search](./day-16)               | Search by meaning                     |
-| 17  | [Tiny vector store](./day-17)                                 | A vector DB in a JSON file            |
-| 18  | [Chunking documents](./day-18)                                | Word and paragraph chunks             |
-| 19  | [RAG part 1](./day-19)                                        | Q&A over a coffee shop's docs         |
-| 20  | [RAG part 2: sources & "I don't know"](./day-20)              | Trustworthy answers                   |
-| 21  | [🛠 Mini project: Chat with your notes](./day-21)             | RAG chat over any folder              |
+| Day | Topic | Key idea | |
+| --- | --- | --- | --- |
+| [15](./day-15) | Embeddings | Text → 768-dim vectors with `nomic-embed-text` | ✅ |
+| [16](./day-16) | Semantic search | Cosine similarity from scratch; task prefixes improve ranking | ✅ |
+| [17](./day-17) | Vector store | In-memory index + JSON persistence, top-k search | ✅ |
+| [18](./day-18) | Chunking | Fixed-size with overlap vs paragraph splitting | ✅ |
+| [19](./day-19) | RAG v1 | Retrieve → augment → generate over private docs | ✅ |
+| [20](./day-20) | RAG v2 | Source citations, similarity threshold, grounded refusals | ✅ |
+| [21](./day-21) | 🛠 Chat with your notes | RAG CLI over any folder (indexes this repo's READMEs by default) | ✅ |
 
-### Week 4 — Building Real Apps
+### Week 4 — Shipping AI apps
 
-| Day | Topic                                                         | What I built                          |
-| --- | ------------------------------------------------------------- | ------------------------------------- |
-| 22  | [Calling the REST API directly](./day-22)                     | `fetch` + NDJSON streaming            |
-| 23  | [Serving AI over HTTP](./day-23)                              | API with `node:http`                  |
-| 24  | [Simple web chat](./day-24)                                   | Streaming chat in the browser         |
-| 25  | [A simple agent](./day-25)                                    | File agent with safe tools            |
-| 26  | [Testing AI output (evals)](./day-26)                         | Scoring prompt versions               |
-| 27  | [Safety basics: prompt injection](./day-27)                   | Input and output checks               |
-| 28  | [🏁 Final project: backend](./day-28)                         | Docs Assistant API                    |
-| 29  | [🏁 Final project: frontend](./day-29)                        | Docs Assistant web page               |
-| 30  | [🏁 Final project: polish & look back](./day-30)              | Config, eval, retrospective           |
-
----
-
-## ✅ My Progress
-
-I tick a day once I've run it, understood it, and done its "Try it yourself" exercise.
-
-- [x] Day 01
-- [x] Day 02
-- [x] Day 03
-- [x] Day 04
-- [ ] Day 05
-- [x] Day 06
-- [ ] Day 07
-- [x] Day 08
-- [ ] Day 09
-- [ ] Day 10
-- [ ] Day 11
-- [ ] Day 12
-- [ ] Day 13
-- [ ] Day 14
-- [ ] Day 15
-- [ ] Day 16
-- [ ] Day 17
-- [ ] Day 18
-- [ ] Day 19
-- [ ] Day 20
-- [ ] Day 21
-- [ ] Day 22
-- [ ] Day 23
-- [ ] Day 24
-- [ ] Day 25
-- [ ] Day 26
-- [ ] Day 27
-- [ ] Day 28
-- [ ] Day 29
-- [ ] Day 30
+| Day | Topic | Key idea | |
+| --- | --- | --- | --- |
+| [22](./day-22) | Raw REST API | `fetch` + NDJSON stream parsing: what the SDK does underneath | ✅ |
+| [23](./day-23) | HTTP API | `node:http` server with input validation and proper status codes | ✅ |
+| [24](./day-24) | Web chat UI | Token streaming to the browser; stateless server, client-side history | ✅ |
+| [25](./day-25) | Agent | Goal-driven tool loop over files, least-privilege file access | ✅ |
+| [26](./day-26) | Evals | Test set + scoring to compare prompt versions | ✅ |
+| [27](./day-27) | Prompt injection | Delimiters, sandwich defense, input and output guards | ✅ |
+| [28](./day-28) | 🏁 Docs Assistant: API | RAG behind `POST /ask` → `{ answer, sources }` | ✅ |
+| [29](./day-29) | 🏁 Docs Assistant: UI | Vanilla HTML/JS frontend | ✅ |
+| [30](./day-30) | 🏁 Docs Assistant: polish | Env config, eval suite, prompt fix driven by eval results | ✅ |
 
 ---
 
-## ⚙️ Setup
+## Final project: Docs Assistant
 
-You need [Node.js](https://nodejs.org) 18+ and [Ollama](https://ollama.com).
+Ask questions about any folder of Markdown or text files and get grounded answers with sources.
+
+```
+                ┌──────────── indexing (on startup) ────────────┐
+ docs/*.md ──▶  chunk by paragraph ──▶ embed (nomic-embed-text) ──▶ vector store
+                └───────────────────────────────────────────────┘
+                                                                      │
+ question ──▶ embed ──▶ top-k cosine search ──▶ filter score ≥ 0.55 ──┘
+                                │
+                     no chunks? → "couldn't find it" (no LLM call)
+                                │
+                      context + strict prompt ──▶ qwen2.5:3b ──▶ { answer, sources }
+```
 
 ```bash
-# 1. Download the models (once)
+npx tsx day-30/server.ts                        # http://localhost:3000
+DOCS_FOLDER=~/my-notes npx tsx day-30/server.ts # any folder
+npx tsx day-30/eval.ts                          # run the eval suite
+```
+
+---
+
+## What I found along the way
+
+Real results from running the code, not theory:
+
+| Experiment | Result | Takeaway |
+| --- | --- | --- |
+| Prompt versions on a support-ticket classifier (Day 26) | v1 **0%** → v2 **100%** → v3 **100%** | The model knew the answer in v1 but wrapped it in a sentence. Output format matters as much as content. |
+| RAG eval on the Docs Assistant (Day 30) | **7/10 → 9/10** | Two "failures" were bad tests. One was a vague-answer bug fixed by a single prompt line. |
+| Remaining RAG failure (Day 30) | Correct chunk not in top 6 | When retrieval misses, no prompt can save the answer. Next step: hybrid keyword + vector search. |
+| `search_query:` / `search_document:` prefixes (Day 16) | Top match score **0.66 → 0.74**, better ranking | Read the embedding model's docs. Small details move retrieval quality. |
+| Agent with write access to its inputs (Day 25) | Overwrote its own input files | Least privilege isn't optional for agents: read-only inputs, a separate output dir. |
+| Prompt injection vs a "safe" prompt (Day 27) | 3B model still followed the injected text | Defenses reduce risk, they don't remove it. Never put secrets in prompts. |
+| Tool calling with a 3B model (Days 9–10) | Mis-copied numbers, occasional empty replies | Log every tool call, and build fallbacks for model quirks. |
+
+---
+
+## Setup
+
+Requires [Node.js](https://nodejs.org) 18+ and [Ollama](https://ollama.com).
+
+```bash
 ollama pull qwen2.5:3b          # chat model (~2 GB)
-ollama pull nomic-embed-text    # embedding model for Week 3+ (~270 MB)
+ollama pull nomic-embed-text    # embedding model (~270 MB)
 
-# 2. Install packages
 npm install
-
-# 3. Run any day
-npx tsx day-02/chat.ts
+npx tsx day-02/chat.ts          # run any day
+npm run typecheck               # type-check the whole repo
 ```
 
-Each day's README shows the exact command to run.
-
-**Useful:**
-
-- `npm run typecheck` checks all TypeScript files for type errors.
-- Make sure Ollama is running (open the app, or run `ollama serve`).
+Each day's README has its own run command and a "Try it yourself" exercise.
 
 ---
 
-## 📂 Structure
+## Tech stack
 
-```
-.
-├── day-01/            # one folder per day
-│   ├── README.md      # what I learned + how to run it
-│   └── index.ts
-├── day-02/
-├── ...
-├── day-30/
-├── package.json
-├── tsconfig.json
-└── README.md
-```
+**TypeScript** · **Node.js** (`readline`, `fs`, `http`, `fetch`) · **Ollama** · `qwen2.5:3b` · `nomic-embed-text` · [`tsx`](https://github.com/privatenumber/tsx)
 
-Each day is a **standalone snapshot**. Some code (like the vector store) is copied forward on purpose, so every day runs on its own and shows the code as it was at that point in the journey.
+Only one runtime dependency: [`ollama`](https://www.npmjs.com/package/ollama).
 
 ---
 
-## 🛠️ Tech Stack
+## Author
 
-- **TypeScript** (run with [`tsx`](https://github.com/privatenumber/tsx), no build step)
-- **Node.js** built-ins: `readline`, `fs`, `http`, `fetch`
-- **Ollama** + the [`ollama`](https://www.npmjs.com/package/ollama) npm package
-- Models: `qwen2.5:3b` (chat) and `nomic-embed-text` (embeddings)
+**Ammar Shahid** · [ammarshahid.site](https://ammarshahid.site)
 
-No frameworks, no vector database, no cloud. Just the basics, so I understand how things really work.
-
----
-
-## 💡 Note
-
-This is a learning repository. The code is kept simple on purpose, and you'll see it improve as the days go on.
-
----
-
-## 👨‍💻 Author
-
-**Ammar Shahid**
-
-🌐 Portfolio: [ammarshahid.site](https://ammarshahid.site)
-
-Learning AI Engineering one project at a time.
-
----
-
-⭐ If you find this repository useful or interesting, feel free to star it!
+If this helped you learn something, a ⭐ is appreciated.
