@@ -2,6 +2,8 @@
 
 **Goal:** finish the Docs Assistant, and look back at the 30 days.
 
+![Docs Assistant](../screenshots/day-30-docs-assistant.png)
+
 ## What I added today
 
 - **Settings via environment variables** (`config.ts`): point it at any folder.

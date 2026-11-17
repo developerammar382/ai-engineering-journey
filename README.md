@@ -83,6 +83,8 @@ messages[] → memory → streaming → JSON output → tools → tool loop → 
 
 Ask questions about any folder of Markdown or text files and get grounded answers with sources.
 
+![Docs Assistant answering a question with its source](./screenshots/day-30-docs-assistant.png)
+
 ```
                 ┌──────────── indexing (on startup) ────────────┐
  docs/*.md ──▶  chunk by paragraph ──▶ embed (nomic-embed-text) ──▶ vector store
@@ -141,6 +143,12 @@ Each day's README has its own run command and a "Try it yourself" exercise.
 **TypeScript** · **Node.js** (`readline`, `fs`, `http`, `fetch`) · **Ollama** · `qwen2.5:3b` · `nomic-embed-text` · [`tsx`](https://github.com/privatenumber/tsx)
 
 Only one runtime dependency: [`ollama`](https://www.npmjs.com/package/ollama).
+
+---
+
+## License
+
+[ISC](./LICENSE) © Ammar Shahid
 
 ---
 
