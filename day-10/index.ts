@@ -8,7 +8,7 @@ import { tools, toolFunctions } from "./tools.ts";
 //
 // We stop when the AI answers without asking for a tool.
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const MAX_STEPS = 5; // safety limit so we never loop forever
 
 async function ask(question: string) {

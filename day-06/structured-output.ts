@@ -32,7 +32,7 @@ about dreams inside dreams. I'd give it 9 out of 10.
 `;
 
 const response = await ollama.chat({
-  model: "qwen2.5:3b",
+  model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
   messages: [{ role: "user", content: `Extract the movie details from this text:\n${text}` }],
   format: movieSchema,
   options: { temperature: 0 },

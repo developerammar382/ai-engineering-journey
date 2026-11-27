@@ -13,7 +13,7 @@ async function askAI(question: string) {
     // Send the complete conversation to Ollama.
     // stream: true means we get the answer in small pieces (chunks) as it is generated.
     const stream = await ollama.chat({
-      model: "qwen2.5:3b",
+      model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
       messages: getMessages(),
       stream: true,
     });

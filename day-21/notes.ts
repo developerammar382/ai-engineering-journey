@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { VectorStore } from "./vector-store.ts";
 import { chunkText } from "./chunk.ts";
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const MIN_SCORE = 0.5;
 const STORE_FILE = new URL("./store.json", import.meta.url);
 

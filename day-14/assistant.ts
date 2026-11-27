@@ -1,7 +1,7 @@
 import ollama, { type Message } from "ollama";
 import { tools, toolFunctions } from "./tools.ts";
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const MAX_STEPS = 5;
 const MAX_HISTORY = 20; // Day 12: don't let the history grow forever
 

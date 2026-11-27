@@ -30,7 +30,7 @@ while (true) {
   messages.push({ role: "user", content: question });
 
   process.stdout.write("AI: ");
-  const stream = await ollama.chat({ model: "qwen2.5:3b", messages, stream: true });
+  const stream = await ollama.chat({ model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b", messages, stream: true });
 
   let reply = "";
   for await (const chunk of stream) {

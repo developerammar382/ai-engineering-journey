@@ -13,7 +13,7 @@ import { chunkByParagraph } from "./chunk.ts";
 //
 // Everything we learned this week comes together here.
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const DOCS_FOLDER = new URL("./docs/", import.meta.url);
 
 // ---------- Step 0: index the documents (load, chunk, embed) ----------

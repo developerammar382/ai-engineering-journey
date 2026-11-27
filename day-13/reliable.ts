@@ -6,7 +6,7 @@ import ollama from "ollama";
 //   - the model returns broken or incomplete JSON
 // Today we build small helpers that handle these problems.
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 // ---------- 1. Friendly error messages ----------
 function explainError(error: unknown): string {

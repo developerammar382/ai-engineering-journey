@@ -8,7 +8,7 @@ import ollama, { type Message } from "ollama";
 //   1. Trimming:     only keep the last few messages (simple, but forgets things)
 //   2. Summarizing:  replace old messages with a short summary (keeps the important facts)
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 // Rough rule: 1 token is about 4 characters of English text.
 function estimateTokens(messages: Message[]): number {

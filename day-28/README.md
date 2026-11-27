@@ -43,6 +43,12 @@ curl -X POST http://localhost:3000/ask \
   -d '{"question":"When are you open on Sunday?"}'
 ```
 
+## Try it yourself
+
+- Add a `GET /docs` route that lists the indexed files and how many chunks each has.
+- Return each source's similarity score next to its name, so you can see why it was picked.
+- Send an empty question, a number, and a 600-character question with `curl`. Do you get the right status codes?
+
 ## Note
 
 "Sources" are the files of all chunks given to the AI, so sometimes an extra file shows up that wasn't really needed for the answer.

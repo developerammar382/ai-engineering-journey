@@ -24,7 +24,7 @@ async function askAI(question: string) {
 
     // Everything else goes to the AI.
     const response = await ollama.chat({
-      model: "qwen2.5:3b",
+      model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
       messages: getMessages(),
       stream: false,
     });

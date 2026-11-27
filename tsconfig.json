@@ -7,7 +7,12 @@
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "skipLibCheck": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "include": ["day-*/**/*.ts"]
+  "include": [
+    "day-*/**/*.ts",
+    "scripts/**/*.ts"
+  ]
 }

@@ -4,7 +4,7 @@ import { calculate, calculateTool } from "./tools.ts";
 // On Day 8 our code decided when to use the calculator ("calculate ...").
 // Today the AI decides by itself. This is called "tool calling" (or "function calling").
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 async function ask(question: string) {
   const messages: Message[] = [{ role: "user", content: question }];

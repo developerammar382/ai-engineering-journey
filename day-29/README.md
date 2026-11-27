@@ -24,6 +24,12 @@ npx tsx day-29/server.ts
 
 Open http://localhost:3000.
 
+## Try it yourself
+
+- Press Enter to send instead of clicking the button.
+- Save past answers in `localStorage` so they survive a page refresh.
+- Make each source clickable, and show that chunk's text when clicked.
+
 ## What's missing (fixed tomorrow)
 
 - No "loading" state. You can't tell if it's working.

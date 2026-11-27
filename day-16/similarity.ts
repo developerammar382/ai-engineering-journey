@@ -7,7 +7,7 @@ import ollama from "ollama";
 //    ~0   = unrelated
 // It's the most common way to compare embeddings.
 
-const EMBED_MODEL = "nomic-embed-text";
+const EMBED_MODEL = process.env.EMBED_MODEL ?? "nomic-embed-text";
 
 function cosineSimilarity(a: number[], b: number[]): number {
   let dot = 0;
