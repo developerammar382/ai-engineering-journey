@@ -6,7 +6,7 @@ import { chunkByParagraph } from "./chunk.ts";
 // The "brain" of the Docs Assistant: Day 20's RAG, packed into two functions
 // that the server can call.
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const MIN_SCORE = 0.55;
 const NOT_FOUND = "Sorry, I couldn't find that in the documents.";
 

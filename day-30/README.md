@@ -40,6 +40,13 @@ npx tsx day-30/eval.ts       # run the tests
 - Add the section/heading name to each chunk, so chunks carry more context.
 - Ask the AI to rewrite the question into a better search query first.
 
+## Try it yourself
+
+- Fix the known issue above. Try one of the three ideas, then run `eval.ts`. Did the score go up?
+- Add 5 of your own test questions to `eval.ts`, including one the docs **can't** answer. Does it refuse correctly?
+- Run the eval with a bigger model: `OLLAMA_MODEL=qwen2.5:7b npx tsx day-30/eval.ts`. Is it worth the extra size?
+- Point it at your own notes with `DOCS_FOLDER` and ask it something only your notes know.
+
 ## Looking back at 30 days
 
 | Week | What I can do now                                                                  |

@@ -1,17 +1,24 @@
 {
   "name": "ai-engineering-journey",
   "version": "1.0.0",
-  "description": "My 30-day AI Engineering learning journey with TypeScript and Ollama.",
+  "description": "Learn AI engineering in 30 days by building it from scratch: LLM calls, tools, agents, embeddings, RAG and evals in plain TypeScript with local models (Ollama).",
   "type": "module",
   "scripts": {
+    "doctor": "tsx scripts/doctor.ts",
+    "day": "tsx scripts/day.ts",
     "typecheck": "tsc"
   },
   "keywords": [
     "ai",
+    "ai-engineering",
     "llm",
     "ollama",
     "rag",
+    "agents",
+    "embeddings",
     "typescript",
+    "local-llm",
+    "tutorial",
     "learning"
   ],
   "author": "Ammar Shahid",
@@ -23,5 +30,12 @@
     "@types/node": "^18.19.130",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/developerammar382/ai-engineering-journey.git"
   }
 }

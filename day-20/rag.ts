@@ -12,7 +12,7 @@ import { chunkByParagraph } from "./chunk.ts";
 //   - skip chunks with a low similarity score
 //   - tell the AI clearly: "if the answer isn't in the context, say you don't know"
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const DOCS_FOLDER = new URL("./docs/", import.meta.url);
 const MIN_SCORE = 0.55; // found by testing: below this, chunks were usually unrelated
 

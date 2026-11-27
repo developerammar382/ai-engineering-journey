@@ -4,7 +4,7 @@ import ollama from "ollama";
 // that text can contain instructions too. This is called "prompt injection".
 // The AI can't always tell "instructions from the developer" apart from "text to process".
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 async function chat(system: string, user: string): Promise<string> {
   const response = await ollama.chat({

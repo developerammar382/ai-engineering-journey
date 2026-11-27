@@ -12,7 +12,7 @@ async function askAI(question: string) {
   // Send the complete conversation to Ollama.
   // This helps the model understand what was discussed before.
   const response = await ollama.chat({
-    model: "qwen2.5:3b",
+    model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
     messages,
   });
 

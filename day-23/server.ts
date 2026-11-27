@@ -6,7 +6,7 @@ import ollama from "ollama";
 // We use Node's built-in "http" module: no Express, no extra packages.
 
 const PORT = 3000;
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 // Reads the full request body (it arrives in pieces) and parses it as JSON.
 async function readJson(req: http.IncomingMessage): Promise<any> {

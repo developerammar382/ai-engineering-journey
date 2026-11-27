@@ -29,7 +29,7 @@ if (text.length > MAX_CHARS) {
 }
 
 const stream = await ollama.chat({
-  model: "qwen2.5:3b",
+  model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
   messages: [
     {
       role: "system",

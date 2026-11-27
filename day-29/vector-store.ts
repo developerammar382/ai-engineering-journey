@@ -5,7 +5,7 @@ import { readFile, writeFile } from "node:fs/promises";
 // Real ones (Pinecone, Chroma, pgvector...) are fast with millions of items.
 // To understand the idea, we build a tiny one: an array + a JSON file.
 
-const EMBED_MODEL = "nomic-embed-text";
+const EMBED_MODEL = process.env.EMBED_MODEL ?? "nomic-embed-text";
 
 export type Item = {
   text: string;

@@ -7,7 +7,7 @@ import ollama from "ollama";
 // We use a special small model made only for embeddings:
 //   ollama pull nomic-embed-text
 
-const EMBED_MODEL = "nomic-embed-text";
+const EMBED_MODEL = process.env.EMBED_MODEL ?? "nomic-embed-text";
 
 const response = await ollama.embed({
   model: EMBED_MODEL,

@@ -1,0 +1,17 @@
+name: 🤔 Something is unclear
+description: A README or code comment is confusing, wrong, or has a typo.
+labels: [docs]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where?
+      placeholder: "e.g. day-16/README.md, the cosine similarity part"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What's confusing, and what would make it clearer?
+    validations:
+      required: true

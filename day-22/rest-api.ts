@@ -7,7 +7,7 @@
 // Read the address from an environment variable, with a default.
 // Try: OLLAMA_HOST=http://127.0.0.1:11434 npx tsx day-22/rest-api.ts
 const OLLAMA_HOST = process.env.OLLAMA_HOST ?? "http://127.0.0.1:11434";
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 // ---------- 1. List installed models (GET) ----------
 const tagsResponse = await fetch(`${OLLAMA_HOST}/api/tags`);

@@ -1,6 +1,24 @@
+<div align="center">
+
 # 30 Days of AI Engineering
 
-Building LLM applications from first principles: no frameworks, no cloud APIs, just **TypeScript**, **Node.js** built-ins and local models through **Ollama**.
+**Learn AI engineering by building it yourself: LLM calls, tools, agents, embeddings, RAG and evals in plain TypeScript.**
+<br>No LangChain. No API keys. No cloud bill. Everything runs on your laptop.
+
+[![CI](https://github.com/developerammar382/ai-engineering-journey/actions/workflows/ci.yml/badge.svg)](https://github.com/developerammar382/ai-engineering-journey/actions/workflows/ci.yml)
+[![License: ISC](https://img.shields.io/badge/license-ISC-blue.svg)](./LICENSE)
+![Node 18+](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Runs locally](https://img.shields.io/badge/runs-100%25%20local-black?logo=ollama)
+[![GitHub stars](https://img.shields.io/github/stars/developerammar382/ai-engineering-journey?style=social)](https://github.com/developerammar382/ai-engineering-journey/stargazers)
+
+<img src="./screenshots/demo.gif" alt="Docs Assistant answering questions with sources, running locally" width="720">
+
+<sub>The final project: a RAG Docs Assistant with sources, built from scratch on Day 30.</sub>
+
+</div>
+
+---
 
 Over 30 days I went from a single `chat()` call to a **RAG-powered Docs Assistant** with an HTTP API, a web UI, source citations, input guards and an automated eval suite. Every day is a small, runnable step with notes on what worked, what broke, and why.
 
@@ -13,6 +31,35 @@ messages[] → memory → streaming → JSON output → tools → tool loop → 
 ```
 
 **Status: ✅ all 30 days complete.**
+
+---
+
+## Quick start
+
+```bash
+git clone https://github.com/developerammar382/ai-engineering-journey.git
+cd ai-engineering-journey
+npm install
+
+ollama pull qwen2.5:3b          # chat model (~2 GB)
+ollama pull nomic-embed-text    # embedding model (~270 MB)
+
+npm run doctor                  # checks Node, Ollama and models
+npm run day -- 1                # run Day 1
+```
+
+New to Ollama? [Install it here](https://ollama.com). It runs open models on your own machine for free.
+
+---
+
+## Who this is for
+
+- You know **basic JavaScript or TypeScript** and want to understand how AI apps actually work.
+- You've used ChatGPT or an AI SDK, but RAG, tool calling and agents still feel like magic.
+- You'd rather **build a vector store in 70 lines** than install one you don't understand.
+- You have **30–60 minutes a day**. Each day is one small idea plus a "Try it yourself" exercise.
+
+**How to follow along:** start at [Day 1](./day-01), read the day's README, run the code, then do the exercise before moving on. Share your solutions in [Discussions](https://github.com/developerammar382/ai-engineering-journey/discussions).
 
 ---
 
@@ -130,11 +177,50 @@ ollama pull qwen2.5:3b          # chat model (~2 GB)
 ollama pull nomic-embed-text    # embedding model (~270 MB)
 
 npm install
-npx tsx day-02/chat.ts          # run any day
+npm run doctor                  # check everything is ready
+npm run day -- 2                # run a day's main file
+npm run day -- 6 structured-output   # run a specific file from a day
+npx tsx day-02/chat.ts          # or run any file directly
 npm run typecheck               # type-check the whole repo
 ```
 
 Each day's README has its own run command and a "Try it yourself" exercise.
+
+### Use a different model
+
+Every day reads the model names from environment variables, so you can try a bigger (or smaller) model without editing code:
+
+```bash
+OLLAMA_MODEL=qwen2.5:7b npm run day -- 10
+OLLAMA_MODEL=llama3.1:8b npx tsx day-30/eval.ts   # compare eval scores across models
+EMBED_MODEL=mxbai-embed-large npm run day -- 21 --rebuild
+```
+
+| Variable       | Default            | Used for                         |
+| -------------- | ------------------ | -------------------------------- |
+| `OLLAMA_MODEL` | `qwen2.5:3b`       | Chat and tool calling            |
+| `EMBED_MODEL`  | `nomic-embed-text` | Embeddings (Days 15–30)          |
+| `DOCS_FOLDER`  | `day-30/docs`      | The folder Day 30 answers from   |
+| `PORT`         | `3000`             | Day 30 server port               |
+
+Pick a model that supports **tool calling** for Days 9–14 and 25.
+
+All settings are listed in [`.env.example`](./.env.example). To use a file instead of inline variables (Node 20.6+):
+
+```bash
+cp .env.example .env
+npx tsx --env-file=.env day-30/server.ts
+```
+
+### Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| `fetch failed` / `ECONNREFUSED 127.0.0.1:11434` | Ollama isn't running. Open the Ollama app or run `ollama serve`. |
+| `model "..." not found` | Run `ollama pull <model>`. `npm run doctor` tells you which one. |
+| Very slow answers | Normal on CPU-only machines. Use a smaller model, e.g. `OLLAMA_MODEL=qwen2.5:1.5b`. |
+| Weird search results after changing `EMBED_MODEL` | Old vectors are cached in `store.json`. Delete it (or use `--rebuild` on Day 21). |
+| Tool calls ignored or numbers mis-copied | That's a small-model quirk (see "What I found" above). Try a 7B+ model. |
 
 ---
 
@@ -143,6 +229,12 @@ Each day's README has its own run command and a "Try it yourself" exercise.
 **TypeScript** · **Node.js** (`readline`, `fs`, `http`, `fetch`) · **Ollama** · `qwen2.5:3b` · `nomic-embed-text` · [`tsx`](https://github.com/privatenumber/tsx)
 
 Only one runtime dependency: [`ollama`](https://www.npmjs.com/package/ollama).
+
+---
+
+## Contributing
+
+Found a bug, a confusing explanation, or have an exercise idea? Issues and PRs are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 

@@ -26,7 +26,7 @@ const testCases: { message: string; expected: Category }[] = [
 // ---------- Prompt version 1: just list the category names ----------
 async function classifyV1(message: string): Promise<string> {
   const response = await ollama.chat({
-    model: "qwen2.5:3b",
+    model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
     messages: [
       { role: "user", content: `Classify this support message as billing, technical, account or other: ${message}` },
     ],
@@ -38,7 +38,7 @@ async function classifyV1(message: string): Promise<string> {
 // ---------- Prompt version 2: also say HOW to answer ----------
 async function classifyV2(message: string): Promise<string> {
   const response = await ollama.chat({
-    model: "qwen2.5:3b",
+    model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
     messages: [
       {
         role: "user",
@@ -54,7 +54,7 @@ async function classifyV2(message: string): Promise<string> {
 // ---------- Prompt version 3: explain each category + force the output format ----------
 async function classifyV3(message: string): Promise<string> {
   const response = await ollama.chat({
-    model: "qwen2.5:3b",
+    model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
     messages: [
       {
         role: "system",

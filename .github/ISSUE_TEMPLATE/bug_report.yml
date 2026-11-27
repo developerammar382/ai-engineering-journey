@@ -1,0 +1,29 @@
+name: 🐛 Something doesn't run
+description: A day's code crashes or doesn't do what its README says.
+labels: [bug]
+body:
+  - type: input
+    id: day
+    attributes:
+      label: Which day?
+      placeholder: "e.g. Day 19"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: The command you ran and the full output or error.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `npm run doctor`
+      render: shell
+  - type: input
+    id: env
+    attributes:
+      label: OS and model
+      placeholder: "e.g. macOS 15, qwen2.5:3b"

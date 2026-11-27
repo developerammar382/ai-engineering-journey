@@ -1,0 +1,11 @@
+name: 💡 Idea or new exercise
+description: Suggest an exercise, an experiment, or an improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: Which day does it fit, and what would a learner get out of it?
+    validations:
+      required: true

@@ -10,7 +10,7 @@ import ollama, { type Message } from "ollama";
 // That way the server doesn't need to remember anything (it stays "stateless").
 
 const PORT = 3000;
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 async function readJson(req: http.IncomingMessage): Promise<any> {
   let body = "";

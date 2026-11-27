@@ -1,6 +1,6 @@
 import ollama from "ollama";
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 
 // Small helper: send a list of messages, get back only the answer text.
 // "temperature" controls randomness: 0 = focused and repeatable, 1 = more creative.

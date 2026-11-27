@@ -3,7 +3,7 @@ import ollama from "ollama";
 // My very first call to a local AI model.
 // One message in, one answer out. No memory yet.
 const response = await ollama.chat({
-  model: "qwen2.5:3b",
+  model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
   messages: [
     {
       role: "user",

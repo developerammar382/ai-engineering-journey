@@ -8,7 +8,7 @@ import { tools, toolFunctions } from "./tools.ts";
 //
 // Usage: npx tsx day-25/agent.ts "your goal here"
 
-const MODEL = "qwen2.5:3b";
+const MODEL = process.env.OLLAMA_MODEL ?? "qwen2.5:3b";
 const MAX_STEPS = 10;
 
 const goal =

@@ -15,7 +15,7 @@ async function askAI(question: string) {
 
     // stream: false because we need the complete JSON before we can parse it.
     const response = await ollama.chat({
-      model: "qwen2.5:3b",
+      model: process.env.OLLAMA_MODEL ?? "qwen2.5:3b",
       messages: getMessages(),
       stream: false,
     });
